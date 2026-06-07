@@ -7795,112 +7795,31 @@ a.anchor-link {
 </style>
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
-<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=d848f9d2">
+<main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=8e108e3c">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [12]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">warnings</span>
-<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s1">'ignore'</span><span class="p">)</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.io</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pio</span>
-
-<span class="c1"># Görsel stil ayarları</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">set_style</span><span class="p">(</span><span class="s2">"whitegrid"</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">"figure.figsize"</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
-<span class="n">pio</span><span class="o">.</span><span class="n">renderers</span><span class="o">.</span><span class="n">default</span> <span class="o">=</span> <span class="s2">"notebook"</span>
-
-<span class="c1"># --- PROJE GİRİŞ SAYFASI ÇIKTILARI ---</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"========================================================================="</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"          Banka Müşteri Terk Analizi ve Sadakat Modellemesi            "</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"========================================================================="</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Yazar: YAĞMUR SAKA"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">Veri Kaynağı: Kaggle (Bank Customer Churn Modeling Store Dataset)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Link: https://www.kaggle.com/datasets/barelydedicated/bank-customer-churn-modeling"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">-------------------------------------------------------------------------"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Çalışmanın Amacı:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"-------------------------------------------------------------------------"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Bu çalışmada, bir bankanın müşteri kayıp (churn) süreçleri incelenmiştir."</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Müşterilerin demografik özellikleri, kredi skorları, bankacılık ürün"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"kullanım alışkanlıkları ve hesap bakiyeleri ile bankayı terk etme oranları"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"arasındaki istatistiksel ilişkiler analiz edilmiştir. Amaç, gelecekte"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"ayrılma riski yüksek olan müşteri segmentlerini önceden tespit ederek"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"bankanın kayıp önleme ve sadakat stratejilerine katkı sağlamaktır."</span><span class="p">)</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">-------------------------------------------------------------------------"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Veri Seti ve Değişkenler:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"-------------------------------------------------------------------------"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"Analizde kullanılan 'Churn_Modelling.csv' veri setinden seçilen ve"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"üzerinde çalışılan temel değişkenler şunlardır:"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">- CreditScore: Müşterinin kredi güvenilirlik skoru (Sayısal veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- Geography: Müşterinin yerleşik olduğu ülke (Kategorik veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- Gender: Müşterinin cinsiyeti (Kategorik veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- Age: Müşterinin yaşı (Sayısal veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- Balance: Müşterinin banka hesabındaki mevcut bakiye (Sayısal veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- NumOfProducts: Müşterinin bankadan kullandığı toplam ürün sayısı (Sayısal veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- HasCrCard: Müşterinin kredi kartı sahipliği durumu (Kategorik/Binary veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- IsActiveMember: Müşterinin aktif kullanıcı olup olmama durumu (Kategorik/Binary veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- EstimatedSalary: Müşterinin yıllık tahmini gelir düzeyi (Sayısal veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"- Exited: Müşterinin bankadan ayrılıp ayrılmadığı [Hedef Değişken] (Binary veri)"</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">"=========================================================================</span><span class="se">\n\n</span><span class="s2">"</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>=========================================================================
-          Banka Müşteri Terk Analizi ve Sadakat Modellemesi            
-=========================================================================
-Yazar: YAĞMUR SAKA
-
-Veri Kaynağı: Kaggle (Bank Customer Churn Modeling Store Dataset)
-Link: https://www.kaggle.com/datasets/barelydedicated/bank-customer-churn-modeling
-
--------------------------------------------------------------------------
-Çalışmanın Amacı:
--------------------------------------------------------------------------
-Bu çalışmada, bir bankanın müşteri kayıp (churn) süreçleri incelenmiştir.
-Müşterilerin demografik özellikleri, kredi skorları, bankacılık ürün
-kullanım alışkanlıkları ve hesap bakiyeleri ile bankayı terk etme oranları
-arasındaki istatistiksel ilişkiler analiz edilmiştir. Amaç, gelecekte
-ayrılma riski yüksek olan müşteri segmentlerini önceden tespit ederek
-bankanın kayıp önleme ve sadakat stratejilerine katkı sağlamaktır.
-
--------------------------------------------------------------------------
-Veri Seti ve Değişkenler:
--------------------------------------------------------------------------
-Analizde kullanılan 'Churn_Modelling.csv' veri setinden seçilen ve
-üzerinde çalışılan temel değişkenler şunlardır:
-
-- CreditScore: Müşterinin kredi güvenilirlik skoru (Sayısal veri)
-- Geography: Müşterinin yerleşik olduğu ülke (Kategorik veri)
-- Gender: Müşterinin cinsiyeti (Kategorik veri)
-- Age: Müşterinin yaşı (Sayısal veri)
-- Balance: Müşterinin banka hesabındaki mevcut bakiye (Sayısal veri)
-- NumOfProducts: Müşterinin bankadan kullandığı toplam ürün sayısı (Sayısal veri)
-- HasCrCard: Müşterinin kredi kartı sahipliği durumu (Kategorik/Binary veri)
-- IsActiveMember: Müşterinin aktif kullanıcı olup olmama durumu (Kategorik/Binary veri)
-- EstimatedSalary: Müşterinin yıllık tahmini gelir düzeyi (Sayısal veri)
-- Exited: Müşterinin bankadan ayrılıp ayrılmadığı [Hedef Değişken] (Binary veri)
-=========================================================================
-
-
-</pre>
-</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>BANKA MÜŞTERİ TERK VE SADAKAT MODELLEMESİ</p>
+<p>İSİM SOYİSİM : YAĞMUR SAKA</p>
+<p>VERİ KAYNAĞI : Kaggle (Bank Customer Churn Modeling Store Dataset)</p>
+<p>VERİ SETİ BAĞLANTISI : <a href="https://www.kaggle.com/datasets/barelydedicated/bank-customer-churn-modeling">https://www.kaggle.com/datasets/barelydedicated/bank-customer-churn-modeling</a></p>
+<p>Çalışmanın Amacı
+Bu çalışmada, bir bankanın müşteri kayıp (churn) süreçleri incelenmiştir. Müşterilerin demografik özellikleri, kredi skorları, bankacılık ürün kullanım alışkanlıkları ve hesap bakiyeleri ile bankayı terk etme oranları arasındaki istatistiksel ilişkiler analiz edilmiştir. Amaç, gelecekte ayrılma riski yüksek olan müşteri segmentlerini önceden tespit ederek bankanın kayıp önleme ve sadakat stratejilerine katkı sağlamaktır.</p>
+<p>Veri Seti ve Değişkenler
+Analizde kullanılan 'Churn_Modelling.csv' veri seti toplam 10.000 satır ve 14 sütundan oluşmaktadır. Rastgele seçilen 1000 örneklem üzerinde çalışılan temel değişkenler şunlardır:</p>
+<p>CreditScore: Müşterinin kredi güvenilirlik skoru (Sayısal veri)</p>
+<p>Geography: Müşterinin yerleşik olduğu ülke (Kategorik veri)</p>
+<p>Gender: Müşterinin cinsiyeti (Kategorik veri)</p>
+<p>Age: Müşterinin yaşı (Sayısal veri)</p>
+<p>Balance: Müşterinin banka hesabındaki mevcut bakiye (Sayısal veri)</p>
+<p>NumOfProducts: Müşterinin bankadan kullandığı toplam ürün sayısı (Sayısal veri)</p>
+<p>HasCrCard: Müşterinin kredi kartı sahipliği durumu (Kategorik/Binary veri)</p>
+<p>IsActiveMember: Müşterinin aktif kullanıcı olup olmama durumu (Kategorik/Binary veri)</p>
+<p>EstimatedSalary: Müşterinin yıllık tahmini gelir düzeyi (Sayısal veri)</p>
+<p>Exited: Müşterinin bankadan ayrılıp ayrılmadığı [Hedef Değişken] (Binary veri)</p>
 </div>
 </div>
 </div>
